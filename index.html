@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>tired to response some shit messages</title>
+  <title>Tired to response some shit messages</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -14,6 +14,10 @@
     <div class="bg-white w-full max-w-md p-6 rounded-2xl shadow-2xl">
       <h2 class="text-xl font-bold mb-3 text-center text-indigo-600">使用说明</h2>
       <p class="text-gray-600 text-sm leading-relaxed">
+        本工具仅生成 Prompt <br><br>
+        当你收到一些fucking guys发来的shit信息，但是又迫于生存不得不回复时，或许你会用得着这个工具。<br><br>
+        请选择你面对的场景，然后把对话手动填入对应框内（由于一些软件可能禁止截图）。<br><br>
+        对话可手动增减轮次，请你提供尽可能多的上下文。<br><br>
         本工具仅生成 Prompt，不会直接生成回复内容。<br><br>
         请在生成后手动复制 Prompt，粘贴到豆包、千问或其他 Chatbot 中获取最终回复。
       </p>
@@ -138,6 +142,15 @@
   </div>
 
 <script>
+  function getFinalValue(field) {
+    const select = document.getElementById(field + 'Select');
+    const custom = document.getElementById(field + 'Custom');
+  
+    if (select.value === '自定义') {
+      return custom.value.trim() || '未提供';
+    }
+    return select.value;
+  }
 
   function closeModal() {
     document.getElementById("noticeModal").style.display = "none";
@@ -180,10 +193,11 @@
   }
 
   function generatePrompt() {
-    const role = document.getElementById('roleSelect').value;
-    const stance = document.getElementById('stanceSelect').value;
-    const style = document.getElementById('styleSelect').value;
-    const context = document.getElementById('contextSelect').value;
+    const role = getFinalValue('role');
+    const stance = getFinalValue('stance');
+    const style = getFinalValue('style');
+    const context = getFinalValue('context');
+
 
     const container = document.getElementById('conversationContainer');
     const messages = Array.from(container.querySelectorAll('textarea'))
